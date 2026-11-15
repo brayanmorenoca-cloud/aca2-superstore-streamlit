@@ -1,0 +1,7 @@
+ACA 2 - Superstore / DistilBERT
+Modificación académica del modelo distilbert/distilbert-base-uncased:
+fine-tuning para clasificación de secuencias en tres categorías de Superstore.
+Configuración, revisión de base, semilla, épocas y métricas: modelo_final/metadata.json
+y resultados/metricas_test.json. Distribución preparada el 15 de noviembre de 2026.
+Integrantes: Brayan Guillermo Moreno Castro; José Daniel Vargas Otalvaro.
+No es el modelo de relleno de máscaras sin modificar ni una publicación de sus autores.
