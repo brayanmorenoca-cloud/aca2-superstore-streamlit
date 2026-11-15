@@ -1,0 +1,44 @@
+{
+  "model_id": "distilbert/distilbert-base-uncased",
+  "base_revision": "12040accade4e8a0f71eabdb258fecc2e7e948be",
+  "seed": 42,
+  "epochs": 4,
+  "best_epoch": 4,
+  "learning_rate": 2e-05,
+  "weight_decay": 0.01,
+  "warmup_ratio": 0.1,
+  "max_grad_norm": 1.0,
+  "batch_size": 16,
+  "max_length": 64,
+  "labels": [
+    "Furniture",
+    "Office Supplies",
+    "Technology"
+  ],
+  "selection": "F1 macro de validación; empate: menor pérdida. Test no se usa para elegir.",
+  "parameters": 66955779,
+  "device": "cpu",
+  "training_seconds": 276.88454756600026,
+  "versions": {
+    "torch": "2.6.0+cpu",
+    "transformers": "4.57.1",
+    "tokenizers": "0.22.2",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.8.0",
+    "safetensors": "0.8.0"
+  },
+  "dataset_sha256": "dbb0f167b27ccf02d7ff8cb0446a9abc6dbc3522e83cf9daa6939801acfdd196",
+  "model_sha256": "9acdd4816d4ad9ed5d74912e07f8f31e138c880f97784186df974ea264a5135a",
+  "split_sha256": {
+    "train": "f3253970d230328f42bc41ef0d7a11ed69aa338e9399556afcfb852fb7778766",
+    "validation": "2dd98432c0c1efd271d03221a70f709370f8d3d4a83e5f1aef42931847b3d6b5",
+    "test": "13b9d75d2dc490021f32c66e63810abc98fce0a1565356474af4aa2c630c687b"
+  },
+  "limitations": [
+    "Solo nombres de productos en inglés de tres categorías del catálogo Superstore.",
+    "Softmax no equivale a probabilidad calibrada ni garantiza exactitud en productos externos.",
+    "Evaluación interna con grupos de identidad separados; no demuestra generalización a otros comercios.",
+    "Semilla fija no garantiza resultados bit a bit idénticos entre GPU/CPU y versiones."
+  ]
+}

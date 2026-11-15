@@ -1,0 +1,143 @@
+{
+  "source_file": "train.csv",
+  "source_sha256": "dbb0f167b27ccf02d7ff8cb0446a9abc6dbc3522e83cf9daa6939801acfdd196",
+  "source_rows": 9800,
+  "source_columns": 18,
+  "catalog_rows": 1849,
+  "unique_product_ids": 1861,
+  "connected_groups": 1817,
+  "raw_exact_duplicates": 0,
+  "repeated_name_rows": 7951,
+  "missing_values_raw": {
+    "Row ID": 0,
+    "Order ID": 0,
+    "Order Date": 0,
+    "Ship Date": 0,
+    "Ship Mode": 0,
+    "Customer ID": 0,
+    "Customer Name": 0,
+    "Segment": 0,
+    "Country": 0,
+    "City": 0,
+    "State": 0,
+    "Postal Code": 11,
+    "Region": 0,
+    "Product ID": 0,
+    "Category": 0,
+    "Sub-Category": 0,
+    "Product Name": 0,
+    "Sales": 0
+  },
+  "missing_model_inputs": 0,
+  "conflicting_name_labels": 0,
+  "conflicting_id_labels": 0,
+  "product_ids_with_multiple_names": 32,
+  "names_with_multiple_product_ids": 16,
+  "class_counts_raw": {
+    "Furniture": 2078,
+    "Office Supplies": 5909,
+    "Technology": 1813
+  },
+  "class_counts_catalog": {
+    "Furniture": 380,
+    "Office Supplies": 1057,
+    "Technology": 412
+  },
+  "split_counts": {
+    "train": 1295,
+    "validation": 274,
+    "test": 280
+  },
+  "split_group_counts": {
+    "train": 1271,
+    "validation": 273,
+    "test": 273
+  },
+  "split_class_counts": {
+    "train": {
+      "Furniture": 265,
+      "Office Supplies": 742,
+      "Technology": 288
+    },
+    "validation": {
+      "Furniture": 57,
+      "Office Supplies": 156,
+      "Technology": 61
+    },
+    "test": {
+      "Furniture": 58,
+      "Office Supplies": 159,
+      "Technology": 63
+    }
+  },
+  "split_proportions": {
+    "train": 0.7003785830178475,
+    "validation": 0.14818820984315847,
+    "test": 0.15143320713899405
+  },
+  "seed": 42,
+  "target": "Category",
+  "model_input": "Product Name",
+  "label2id": {
+    "Furniture": 0,
+    "Office Supplies": 1,
+    "Technology": 2
+  },
+  "unit_of_analysis": "Nombre de producto único; no cada transacción.",
+  "split_method": "Componentes conectados por nombre Unicode/casefold/espacios y todos los Product ID. División estratificada de grupos 70/15/15 con semilla fija.",
+  "augmentation": "No aplicada: paráfrasis podrían alterar marcas y referencias; no se generan datos sintéticos ni se modifica validación/test.",
+  "word_length": {
+    "min": 1,
+    "median": 5.0,
+    "p95": 11.0,
+    "max": 21
+  },
+  "data_limitations": [
+    "Dataset público de un único catálogo comercial en inglés; no representa todo el comercio electrónico.",
+    "Solo tres categorías conocidas: entradas de otros dominios no tienen una etiqueta correcta garantizada.",
+    "El agrupamiento evita identidad exacta compartida, pero variantes léxicas o familias similares aún pueden estar en distintos grupos.",
+    "No se mide generalización temporal ni a otra tienda. Los puntajes softmax no son probabilidades calibradas de acierto.",
+    "Los códigos postales ausentes en la fuente no afectan el modelo porque esa columna está excluida."
+  ],
+  "excluded_columns": [
+    "Row ID",
+    "Order ID",
+    "Order Date",
+    "Ship Date",
+    "Ship Mode",
+    "Customer ID",
+    "Customer Name",
+    "Segment",
+    "Country",
+    "City",
+    "State",
+    "Postal Code",
+    "Region",
+    "Sub-Category",
+    "Sales"
+  ],
+  "sql_privacy": "La base publicada contiene solo filas técnicas, nombres de producto, SKU y etiquetas; no incluye nombres de clientes, IDs de clientes ni direcciones.",
+  "checks": {
+    "all_disjoint": true,
+    "pairs": {
+      "train__validation": {
+        "sample_id_overlap": 0,
+        "normalized_name_overlap": 0,
+        "group_id_overlap": 0,
+        "product_id_overlap": 0
+      },
+      "train__test": {
+        "sample_id_overlap": 0,
+        "normalized_name_overlap": 0,
+        "group_id_overlap": 0,
+        "product_id_overlap": 0
+      },
+      "validation__test": {
+        "sample_id_overlap": 0,
+        "normalized_name_overlap": 0,
+        "group_id_overlap": 0,
+        "product_id_overlap": 0
+      }
+    }
+  }
+}
