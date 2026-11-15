@@ -4,98 +4,56 @@ ACA 2 - Aprendizaje Automático, CUN.
 
 **Integrantes:** Brayan Guillermo Moreno Castro y José Daniel Vargas Otalvaro.
 
-Esta es la versión de inferencia para Streamlit Community Cloud. Conserva el
-modelo CPU, los datos SQL y las métricas del paquete académico; no reentrena y
-no reemplaza predicciones por datos simulados. La aplicación recibe nombres
-de productos en inglés y clasifica Furniture, Office Supplies o Technology.
+Aplicación de clasificación de nombres de productos en inglés en tres categorías:
+Furniture, Office Supplies y Technology. Integra DistilBERT, SQLite y Streamlit.
 
-## 1. Subir el código a GitHub
+## Aplicación publicada
 
-Repositorio: https://github.com/brayanmorenoca-cloud/aca2-superstore-streamlit
+- [Abrir la aplicación](https://aca2-superstore-brayan-jose.streamlit.app/)
+- [Repositorio](https://github.com/brayanmorenoca-cloud/aca2-superstore-streamlit)
+- [Modelo entrenado - Release v1.0.0](https://github.com/brayanmorenoca-cloud/aca2-superstore-streamlit/releases/tag/v1.0.0)
 
-Descomprimir `ACA2_Streamlit_GitHub.zip`. En **Add file > Upload files**, arrastrar
-TODO el contenido de la carpeta descomprimida, conservando subcarpetas. `app.py`
-y `requirements.txt` deben quedar en la raíz del repositorio, no dentro de
-otra carpeta. Confirmar con **Commit changes** en la rama `main`.
+La publicación usa los mismos pesos CPU del paquete académico; no reentrena ni
+sustituye predicciones por resultados simulados. Evaluación: accuracy **0.975**,
+F1 macro **0.9712572464**, pérdida **0.108757927**, sobre **280 productos**.
+Prueba comprobada: `Wireless keyboard` -> `Technology`, confianza mostrada **99.0 %**.
+La disponibilidad depende de Community Cloud; no se garantiza acceso continuo.
 
-No subir el ZIP como un único archivo ni los pesos mediante Upload files.
+## Modelo e integridad
 
-## 2. Publicar el modelo entrenado como Release
+`model.safetensors` se distribuye como asset de la Release, no dentro de Git.
+La app lo descarga cuando falta y verifica tamaño y SHA-256 antes de cargarlo.
+Si la descarga falla o no coincide, muestra un error y no fabrica predicciones.
 
-El modelo está dentro del ZIP académico completo:
-`ACA2_Superstore/modelo_final/model.safetensors`.
+- Tamaño: **267835644 bytes**.
+- SHA-256: `9acdd4816d4ad9ed5d74912e07f8f31e138c880f97784186df974ea264a5135a`.
+- [Descargar pesos](https://github.com/brayanmorenoca-cloud/aca2-superstore-streamlit/releases/download/v1.0.0/model.safetensors)
 
-En el repositorio, abrir **Releases > Create a new release**:
+## Ejecutar y desplegar
 
-- Etiqueta nueva: `v1.0.0`.
-- Target: `main`.
-- Título: `Modelo DistilBERT Superstore - ACA2`.
-- Adjuntar el archivo **model.safetensors**, sin comprimirlo ni renombrarlo.
-- Esperar a que termine la carga. Publicar con **Publish release**.
-
-El archivo debe tener 267835644 bytes. SHA-256 esperado:
-
-`9acdd4816d4ad9ed5d74912e07f8f31e138c880f97784186df974ea264a5135a`
-
-La aplicación descarga ese asset en su primer inicio y comprueba su tamaño y
-su huella antes de cargarlo. Si falta la Release o el archivo es incorrecto,
-muestra un error explicativo y no habilita una clasificación falsa.
-
-URL prevista del asset (solo existirá después de publicarlo):
-https://github.com/brayanmorenoca-cloud/aca2-superstore-streamlit/releases/download/v1.0.0/model.safetensors
-
-## 3. Crear la aplicación en Streamlit
-
-En https://share.streamlit.io/ seleccionar **Create app**, publicación desde GitHub:
-
-- Repository: `brayanmorenoca-cloud/aca2-superstore-streamlit`.
-- Branch: `main`.
-- Main file path: `app.py`.
-- Advanced settings / Python version: `3.12`.
-- Secrets: vacío; esta aplicación no necesita claves de una API de IA.
-
-Publicar y esperar la instalación. La primera descarga del modelo añade tiempo
-al arranque. Usar la URL que Streamlit asigne después de desplegar: todavía no
-se conoce ni se presenta como una aplicación publicada en este paquete.
-
-## 4. Verificación antes de entregar el enlace
-
-1. Abrir la URL pública sin la sesión de administrador (por ejemplo, incógnito).
-2. Probar `Wireless keyboard`: debe producir Technology con este modelo.
-3. Revisar las pestañas Evaluación, Datos SQL y Metodología.
-4. Confirmar las métricas del modelo CPU: accuracy 0.975 y F1 macro 0.9712572464.
-5. Copiar la URL real al póster. No usar el enlace del repositorio como si fuera la app.
-
-Una URL de Community Cloud no depende de mantener abierta la sesión de Colab.
-El servicio gratuito puede suspender aplicaciones inactivas; el visitante puede
-reactivarlas. No se promete disponibilidad continua ni tiempos de arranque fijos.
-
-## Ejecución local
-
-Python 3.12. Desde la raíz de esta carpeta:
+Con Python **3.12**, desde la raíz del repositorio:
 
 ```bash
 python -m pip install -r requirements.txt
 python -m streamlit run app.py
 ```
 
-Si se copia el modelo correcto a `modelo_final/model.safetensors`, se valida y
-reutiliza localmente sin descargarlo. La variable opcional `ACA2_MODEL_DIR`
-permite señalar una carpeta completa de modelo ya disponible.
+En Community Cloud: repositorio `brayanmorenoca-cloud/aca2-superstore-streamlit`,
+rama `main`, archivo `app.py`, Python `3.12`, sin secretos de API.
+La primera descarga del modelo añade tiempo al arranque. Si ya existe el modelo
+correcto en `modelo_final/model.safetensors`, se valida y reutiliza sin descargarlo.
+`ACA2_MODEL_DIR` permite indicar otra carpeta completa del modelo.
 
 ## Alcance y privacidad
 
-- Inferencia CPU con pesos locales, sin API de IA externa.
-- SQLite de solo lectura; atributos de productos, no datos de clientes.
-- Los CSV de entrada se procesan en memoria; máximo 200 filas y 2 MB.
-- Softmax no es una probabilidad calibrada. Revisar productos fuera del dominio.
-- La evidencia del entrenamiento completo se conserva en el notebook y ZIP académico.
+- Clasificación individual y CSV UTF-8 con columna `Product Name`, hasta 200 filas / 2 MB.
+- Softmax no es una probabilidad calibrada ni garantiza acierto fuera del dominio.
+- SQLite de solo lectura, reducido a atributos de productos; sin datos de clientes.
+- CSV de entrada procesados en memoria; sin API externa de IA ni credenciales.
+- Notebook, entrenamiento y evidencias completas se conservan en el ZIP académico.
 
-## Atribuciones y fuentes
+## Atribuciones
 
-Ver `ATRIBUCIONES.md`, `NOTICE.txt` y la carpeta `licencias/`.
-
-- GitHub, distribución de archivos grandes: https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github
-- GitHub Releases: https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases
-- Streamlit, despliegue: https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy
-- Streamlit, administración y suspensión: https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app
+Consultar [ATRIBUCIONES.md](ATRIBUCIONES.md), [NOTICE.txt](NOTICE.txt) y `licencias/`.
+Modelo base: Apache-2.0. La documentación del dataset original registra GPL 2.
+No se asigna una licencia nueva al código de los integrantes.
