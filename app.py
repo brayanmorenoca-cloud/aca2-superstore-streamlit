@@ -100,7 +100,7 @@ with tab1:
                 contenido = archivo.getvalue()
                 frame = leer_lote_csv(contenido)
                 st.dataframe(frame.head(8), hide_index=True, width="stretch")
-                st.caption(f"{len(frame)} productos validados. No se han clasificado todavía.")
+                st.caption(f"{len(frame)} productos validados.")
             except ValueError as exc:
                 st.error(str(exc))
         if st.button("Clasificar archivo", type="primary", disabled=predictor is None or frame is None):
